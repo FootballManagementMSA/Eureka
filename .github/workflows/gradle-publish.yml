@@ -47,6 +47,6 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              sudo docker ps -q --filter "name=eureka-server" | grep -q . && sudo docker stop "eureka-server" && sudo docker rmi  "bes99/eureka-server"
+              sudo docker ps -q --filter "name=eureka-server" | grep -q . && sudo docker stop "eureka-server" && sudo docker rmi -f "bes99/eureka-server"
               sudo docker pull bes99/eureka-server
               sudo docker run -d --name eureka-server --rm -p 8761:8761 bes99/eureka-server

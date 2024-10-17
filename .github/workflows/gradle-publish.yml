@@ -33,7 +33,7 @@ jobs:
 
     - name: build and release to DockerHub 
       env:
-        NAME: bes99 # 계정 명
+        NAME: ${{secrets.DOCKERHUB_USERNAME}}
         REPO: eureka-server # 레포 이름
       run: |
         docker build -t $REPO .
@@ -47,6 +47,6 @@ jobs:
     steps:
       - name: Docker run
         run: |
-              sudo docker ps -q --filter "name=eureka-server" | grep -q . && sudo docker stop "eureka-server" && sudo docker rmi -f "bes99/eureka-server"
-              sudo docker pull bes99/eureka-server
-              sudo docker run -d --name eureka-server --rm -p 8761:8761 bes99/eureka-server
+              sudo docker ps -q --filter "name=eureka-server" | grep -q . && sudo docker stop "eureka-server" && sudo docker rmi -f "${{secrets.DOCKERHUB_USERNAME}}/eureka-server"
+              sudo docker pull ${{secrets.DOCKERHUB_USERNAME}}/eureka-server
+              sudo docker run -d --name eureka-server --rm -p 8761:8761 ${{secrets.DOCKERHUB_USERNAME}}/eureka-server
